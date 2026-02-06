@@ -1,0 +1,174 @@
+resturant> show collections;
+
+resturant> db.menu.insertOne({name:"dosa",price:80});
+{
+  acknowledged: true,
+  insertedId: ObjectId('6980683e6832e01b3b628ca0')
+}
+resturant> show dbs
+admin        40.00 KiB
+config      108.00 KiB
+local        40.00 KiB
+restaurant   80.00 KiB
+resturant     8.00 KiB
+resturant> show collections;
+menu
+resturant> db.orders.insertOne({item:"dosa",quintity:3,total:240});
+{
+  acknowledged: true,
+  insertedId: ObjectId('698068a66832e01b3b628ca1')
+}
+resturant> show collections:
+MongoshInvalidInputError: [COMMON-10001] 'collections:' is not a valid argument for "show".
+resturant> show collections;
+menu
+orders
+resturant> db,menu,insertMany([
+... {name:"rice:,price:50},
+Uncaught:
+SyntaxError: Unterminated string constant. (2:6)
+
+  1 | db,menu,insertMany([
+> 2 | {name:"rice:,price:50},
+    |       ^
+  3 |
+
+resturant> db.menu,insertMany([
+... {name:"rice",price:50},
+... {name:"coffee",price:20},
+... {name:"ricebath",price:50},
+... {name:"idali",price:30},])
+ReferenceError: insertMany is not defined
+resturant>  db.menu,insertMany([
+... ... {name:"rice",price:50},
+... ... {name:"coffee",price:20},
+... ... {name:"ricebath",price:50},
+... ... {name:"idali",price:30},])
+ReferenceError: insertMany is not defined
+resturant>  db.menu.insertMany([
+... ... {name:"rice",price:50},
+... ... {name:"coffee",price:20},
+... ... {name:"ricebath",price:50},
+... ... {name:"idali",price:30},])
+TypeError: {(intermediate value)(intermediate value)} is not iterable
+resturant> db.menu.insertMany([
+... {name:"rice",price:50},
+... {name:"coffee",price:20},
+... {name:"ricebath",price:50},
+...
+...
+... {name:"idali",price:30},])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69806a966832e01b3b628ca2'),
+    '1': ObjectId('69806a966832e01b3b628ca3'),
+    '2': ObjectId('69806a966832e01b3b628ca4'),
+    '3': ObjectId('69806a966832e01b3b628ca5')
+  }
+}
+resturant> db.menu.find().limit(2);
+[
+  { _id: ObjectId('6980683e6832e01b3b628ca0'), name: 'dosa', price: 80 },
+  { _id: ObjectId('69806a966832e01b3b628ca2'), name: 'rice', price: 50 }
+]
+resturant> db.menu.find().sort({price:-1});
+[
+  { _id: ObjectId('6980683e6832e01b3b628ca0'), name: 'dosa', price: 80 },
+  { _id: ObjectId('69806a966832e01b3b628ca2'), name: 'rice', price: 50 },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca4'),
+    name: 'ricebath',
+    price: 50
+  },
+  { _id: ObjectId('69806a966832e01b3b628ca5'), name: 'idali', price: 30 },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca3'),
+    name: 'coffee',
+    price: 20
+  }
+]
+resturant> db.menu.find({price:50});
+[
+  { _id: ObjectId('69806a966832e01b3b628ca2'), name: 'rice', price: 50 },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca4'),
+    name: 'ricebath',
+    price: 50
+  }
+]
+resturant> db.menu.find({price:{$gte: 50}});
+[
+  { _id: ObjectId('6980683e6832e01b3b628ca0'), name: 'dosa', price: 80 },
+  { _id: ObjectId('69806a966832e01b3b628ca2'), name: 'rice', price: 50 },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca4'),
+    name: 'ricebath',
+    price: 50
+  }
+]
+resturant> db.menu.find({price:{$ne: 50}});
+[
+  { _id: ObjectId('6980683e6832e01b3b628ca0'), name: 'dosa', price: 80 },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca3'),
+    name: 'coffee',
+    price: 20
+  },
+  { _id: ObjectId('69806a966832e01b3b628ca5'), name: 'idali', price: 30 }
+]
+resturant> db.menu.find({price:{$inc: {price:50}});
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:38)
+
+> 1 | db.menu.find({price:{$inc: {price:50}});
+    |                                       ^
+  2 |
+
+resturant> db.menu.updateMany({},{$inc:{price:5}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+resturant> db.menu.find();
+[
+  { _id: ObjectId('6980683e6832e01b3b628ca0'), name: 'dosa', price: 85 },
+  { _id: ObjectId('69806a966832e01b3b628ca2'), name: 'rice', price: 55 },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca3'),
+    name: 'coffee',
+    price: 25
+  },
+  {
+    _id: ObjectId('69806a966832e01b3b628ca4'),
+    name: 'ricebath',
+    price: 55
+  },
+  { _id: ObjectId('69806a966832e01b3b628ca5'), name: 'idali', price: 35 }
+]
+resturant> db.menu.updateMany({name:"dosa"},{$set: {price:90}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+resturant> db.menu.deleteOne({name:"dosa"})
+{ acknowledged: true, deletedCount: 1 }
+resturant> db.menu.deleteMany({price:{$lt:50}})
+{ acknowledged: true, deletedCount: 2 }
+resturant> db.menu.drop();
+true
+resturant> show collections;
+orders
+resturant> db.menu.drop();
+true
+resturant> db.order.drop();
+true
+resturant> show collections;
+orders
+resturant>

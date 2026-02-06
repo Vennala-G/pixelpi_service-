@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PixelPi Service Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="navbar">
+        <div class="logo">PixelPi ServiceBooking</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/api/services">Services</a>
+            <a href="/book">Book Service</a>
+            <a href="/chat">Chat With Us</a>
+        </nav>
+    </header>
+
+    <!-- MARQUEE -->
+    <marquee class="marquee">
+        Book trusted services easily | 24/7 Support | Quality Guaranteed
+    </marquee>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Professional Services at Your Doorstep</h1>
+        <p>Book services easily with just a few clicks</p>
+
+        <div class="cta-buttons">
+            <a href="/book" class="btn">Book a Service</a>
+            <a href="/chat" class="btn secondary">Chat With Us</a>
+        </div>
+    </section>
+
+    <!-- SERVICES HIGHLIGHT -->
+    <section class="services">
+        <h2>Our Services</h2>
+
+        <div class="service-cards">
+            {% for service in services %}
+            <div class="card">
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description }}</p>
+                <p><strong>Price:</strong> {{ service.priceRange }}</p>
+                <p><strong>Duration:</strong> {{ service.duration }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Contact: servicebooking@gmail.com | +91 7204724293</p>
+        <p>Follow us on Instagram | LinkedIn | Twitter</p>
+        <p>© 2026 Service Booking</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\vennala g> mongosh
+Current Mongosh Log ID: 6980b1995ecc9f35e1628c9f
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.6.0
+Using MongoDB:          8.2.4
+Using Mongosh:          2.6.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-02-02T13:26:03.107+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use college
+switched to db college
+college> db.students.insertMany([
+... {name:"sindhu",age:19,department:"bca",year:2,cgpa:8.5,active:true},
+... {name:"chintu",age:20,department:"bcom",year:3,cgpa:9.5,active:true},
+... {name:"chinnu",age:19,department:"bba",year:3,cgpa:7.5,active:true},
+... {name:"binnu",age:22,department:"mba",year:3,cgpa:6.5,active:true},])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6980b2455ecc9f35e1628ca0'),
+    '1': ObjectId('6980b2455ecc9f35e1628ca1'),
+    '2': ObjectId('6980b2455ecc9f35e1628ca2'),
+    '3': ObjectId('6980b2455ecc9f35e1628ca3')
+  }
+}
+college> db.student.find()
+[
+  {
+    _id: ObjectId('6980ac4a1ef7465ebe628ca0'),
+    name: 'sindhu',
+    age: 19,
+    department: 'bca',
+    year: 2,
+    cgpa: 8.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980ac4a1ef7465ebe628ca1'),
+    name: 'chintu',
+    age: 20,
+    department: 'bcom',
+    year: 3,
+    cgpa: 9.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980ac4a1ef7465ebe628ca2'),
+    name: 'chinnu',
+    age: 19,
+    department: 'bba',
+    year: 3,
+    cgpa: 7.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980ac4a1ef7465ebe628ca3'),
+    name: 'binnu',
+    age: 22,
+    department: 'mba',
+    year: 3,
+    cgpa: 6.5,
+    active: true
+  }
+]
+college>  db.students.find({cgpa: {$gt:9}})
+[
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca1'),
+    name: 'chintu',
+    age: 20,
+    department: 'bcom',
+    year: 3,
+    cgpa: 9.5,
+    active: true
+  }
+]
+college> db.students.find({department:"bca"})
+[
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca0'),
+    name: 'sindhu',
+    age: 19,
+    department: 'bca',
+    year: 2,
+    cgpa: 8.5,
+    active: true
+  }
+]
+college> db.students.find({age: { $gte:19, $lte:20 } })
+[
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca0'),
+    name: 'sindhu',
+    age: 19,
+    department: 'bca',
+    year: 2,
+    cgpa: 8.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca1'),
+    name: 'chintu',
+    age: 20,
+    department: 'bcom',
+    year: 3,
+    cgpa: 9.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca2'),
+    name: 'chinnu',
+    age: 19,
+    department: 'bba',
+    year: 3,
+    cgpa: 7.5,
+    active: true
+  }
+]
+college> db.students.find({},{name:1,cgpa: 1,_id:0})
+[
+  { name: 'sindhu', cgpa: 8.5 },
+  { name: 'chintu', cgpa: 9.5 },
+  { name: 'chinnu', cgpa: 7.5 },
+  { name: 'binnu', cgpa: 6.5 }
+]
+college> db.students.find().sort({cgpa:-1})
+[
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca1'),
+    name: 'chintu',
+    age: 20,
+    department: 'bcom',
+    year: 3,
+    cgpa: 9.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca0'),
+    name: 'sindhu',
+    age: 19,
+    department: 'bca',
+    year: 2,
+    cgpa: 8.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca2'),
+    name: 'chinnu',
+    age: 19,
+    department: 'bba',
+    year: 3,
+    cgpa: 7.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca3'),
+    name: 'binnu',
+    age: 22,
+    department: 'mba',
+    year: 3,
+    cgpa: 6.5,
+    active: true
+  }
+]
+college> db.students.find().sort({cgpa:-1}).limit(2)
+[
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca1'),
+    name: 'chintu',
+    age: 20,
+    department: 'bcom',
+    year: 3,
+    cgpa: 9.5,
+    active: true
+  },
+  {
+    _id: ObjectId('6980b2455ecc9f35e1628ca0'),
+    name: 'sindhu',
+    age: 19,
+    department: 'bca',
+    year: 2,
+    cgpa: 8.5,
+    active: true
+  }
+]
+college> db.students.updateOne({name:"chinnu"},{$set:{cgpa:7.6}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+college> db.students.updateMany({year:7
+...
+college> db.students.updateMany({year:8},{$set:{active:false}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+college> db.students.updateMany({department:"bcom"},{$inc:{age:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+college> db.students.deleteMany({cgpa:{$lt:5}})
+{ acknowledged: true, deletedCount: 0 }
+college> db.students.deleteManyOne({name:"binnu"})
+TypeError: db.students.deleteManyOne is not a function
+college> db.students.deleteOne({name:"binnu"})
+{ acknowledged: true, deletedCount: 1 }
+college> db.students.deleteMany({})
+{ acknowledged: true, deletedCount: 3 }
+college> db.students.drop()
+true
+college> db.dropDatabase()
+{ ok: 1, dropped: 'college' }
+college> show collections
+
+college> db.students.countDocuments()
+0
+college>

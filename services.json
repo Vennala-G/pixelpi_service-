@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Web Development",
+    "description": "Modern and responsive websites tailored to client needs",
+    "priceRange": "₹15,000 - ₹60,000",
+    "duration": "2-6 weeks"
+  },
+  {
+    "id": 2,
+    "name": "App Development",
+    "description": "Android & Web applications with scalable architecture",
+    "priceRange": "₹25,000 - ₹1,00,000",
+    "duration": "4-10 weeks"
+  },
+  {
+    "id": 3,
+    "name": "Digital Marketing",
+    "description": "SEO optimization and social media growth strategies",
+    "priceRange": "₹10,000 - ₹50,000",
+    "duration": "Monthly packages"
+  }
+]
